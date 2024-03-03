@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Friendship Quiz - Validation</title>
+  <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h2{
+            font-family:Papyrus;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .rose-petal {
+            position: absolute;
+            background: url('rose-petal.png') no-repeat;
+            background-size: contain;
+            width: 20px;
+            height: 20px;
+            animation: fall 10s infinite linear;
+            opacity: 0; /* Start with opacity 0, so it fades in */
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(50vw) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<h2>Grateful for the laughter, blessed by the memories, and fortunate for a friend like you</h2>
+<p>19 15 18 18 25</p>
+
+<input type="text" id="sorry" placeholder="           D E C O D E">
+<p></p>
+<button onclick="validateCode()">ACCEPTED</button>
+
+<script>
+        function validateCode() {
+            const code = document.getElementById('sorry').value;
+
+            // Perform validation (for simplicity, always redirect to questions)
+            if (code) {
+                window.location.href = 'questions.html';
+            } else {
+                alert('Validation failed. Please enter a valid code.');
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            const petalContainer = document.body;
+
+            function createPetal() {
+                const petal = document.createElement('div');
+                petal.className = 'rose-petal';
+
+                // Random horizontal and vertical positions
+                petal.style.left = `${Math.random() * 100}vw`;
+                petal.style.top = `${Math.random() * 100}vh`;
+
+                // Random size not exceeding 40px
+                const size = Math.random() * 40;
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size}px`;
+
+                petalContainer.appendChild(petal);
+            }
+
+            // Create a certain number of rose petals
+            const numberOfPetals = 50;
+            for (let i = 0; i < numberOfPetals; i++) {
+                createPetal();
+            }
+        });
+    </script>
+<p> Hint: Decode using alphabets</p>
+</body>
+</html>

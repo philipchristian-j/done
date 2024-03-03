@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Friendship Quiz - Questions</title>
+  <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        label {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+            display: inline-block;
+        }
+
+        .happy-image,
+        .sad-image {
+            max-width: 100%;
+            max-height: 200px;
+            display: none;
+            margin-top: 20px;
+        }
+        .rose-petal {
+            position: absolute;
+            background: url('rose-petal.png') no-repeat;
+            background-size: contain;
+            width: 20px;
+            height: 20px;
+            animation: fall 10s infinite linear;
+            opacity: 0; /* Start with opacity 0, so it fades in */
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(50vw) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- Question 1 -->
+<p>1. Have you ever shared a secret with your friend?</p>
+<input type="radio" name="question1" id="yes1" value="yes" onclick="showImage('question1', 'happy')">
+<label for="yes1">Yes</label>
+<input type="radio" name="question1" id="no1" value="no" onclick="showImage('question1', 'sad')">
+<label for="no1">No</label>
+<img class="happy-image" id="happyImage_question1" src="happy-image.gif" alt="Happy Image">
+<img class="sad-image" id="sadImage_question1" src="sad-image.jpg" alt="Sad Image">
+
+<!-- Question 2 -->
+<p>2. Do you enjoy spending time with your friend?</p>
+<input type="radio" name="question2" id="yes2" value="yes" onclick="showImage('question2', 'happy')">
+<label for="yes2">Yes</label>
+<input type="radio" name="question2" id="no2" value="no" onclick="showImage('question2', 'sad')">
+<label for="no2">No</label>
+<img class="happy-image" id="happyImage_question2" src="happy-image1.gif" alt="Happy Image">
+<img class="sad-image" id="sadImage_question2" src="sad-image.jpg" alt="Sad Image">
+
+<!-- Question 3 -->
+<p>3. Would you trust your friend with an important task?</p>
+<input type="radio" name="question3" id="yes3" value="yes" onclick="showImage('question3', 'happy')">
+<label for="yes3">Yes</label>
+<input type="radio" name="question3" id="no3" value="no" onclick="showImage('question3', 'sad')">
+<label for="no3">No</label>
+<img class="happy-image" id="happyImage_question3" src="happy-image.gif" alt="Happy Image">
+<img class="sad-image" id="sadImage_question3" src="sad-image.jpg" alt="Sad Image">
+
+<!-- Question 4 -->
+<p>4. Do you feel hurt if he didn't count on you?</p>
+<input type="radio" name="question4" id="yes4" value="yes" onclick="showImage('question4', 'happy')">
+<label for="yes4">Yes</label>
+<input type="radio" name="question4" id="no4" value="no" onclick="showImage('question4', 'sad')">
+<label for="no4">No</label>
+<img class="happy-image" id="happyImage_question4" src="happy-image1.gif" alt="Happy Image">
+<img class="sad-image" id="sadImage_question4" src="sad-image.jpg" alt="Sad Image">
+
+<!-- Question 5 -->
+<p>5. Do you feel comfortable being yourself around your friend?</p>
+<input type="radio" name="question5" id="yes5" value="yes" onclick="showImage('question5', 'happy')">
+<label for="yes5">Yes</label>
+<input type="radio" name="question5" id="no5" value="no" onclick="showImage('question5', 'sad')">
+<label for="no5">No</label>
+<img class="happy-image" id="happyImage_question5" src="happy-image.gif" alt="Happy Image">
+<img class="sad-image" id="sadImage_question5" src="sad-image.jpg" alt="Sad Image">
+
+<button onclick="submitAnswers()">Submit</button>
+
+<script>
+        let yesCount = 0;
+
+        function showImage(questionId, emotion) {
+            const happyImage = document.getElementById(`happyImage_${questionId}`);
+            const sadImage = document.getElementById(`sadImage_${questionId}`);
+            const yesRadio = document.getElementById(`yes${questionId.slice(-1)}`);
+
+            if (emotion === 'happy') {
+                happyImage.style.display = 'block';
+                sadImage.style.display = 'none';
+
+                // Check if "Yes" is selected
+                if (yesRadio.checked) {
+                    yesCount++;
+                }
+            } else {
+                happyImage.style.display = 'none';
+                sadImage.style.display = 'block';
+
+                // If "Yes" was previously selected, decrement the count
+                if (yesRadio.checked) {
+                    yesCount--;
+                }
+            }
+        }
+
+        function submitAnswers() {
+            // Validate if "Yes" is selected less than 3 times
+            if (yesCount < 3) {
+                // Redirect to the apology page
+                window.location.href = 'apology.html';
+            } else {
+                // Process answers and determine the result
+                // For simplicity, redirect to the result page
+                window.location.href = 'result.html';
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            const petalContainer = document.body;
+
+            function createPetal() {
+                const petal = document.createElement('div');
+                petal.className = 'rose-petal';
+
+                // Random horizontal and vertical positions
+                petal.style.left = `${Math.random() * 100}vw`;
+                petal.style.top = `${Math.random() * 100}vh`;
+
+                // Random size not exceeding 40px
+                const size = Math.random() * 40;
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size}px`;
+
+                petalContainer.appendChild(petal);
+            }
+
+            // Create a certain number of rose petals
+            const numberOfPetals = 50;
+            for (let i = 0; i < numberOfPetals; i++) {
+                createPetal();
+            }
+        });
+    </script>
+
+</body>
+</html>
